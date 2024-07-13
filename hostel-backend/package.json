@@ -1,0 +1,14 @@
+{
+  "name": "hostel-backend",
+  "version": "1.0.0",
+  "description": "API built for hostel backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hostel"
+  ],
+  "author": "Aditya Kumar",
+  "license": "ISC"
+}

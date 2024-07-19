@@ -1,4 +1,3 @@
-Sure! Here's the updated `readme.md` file without the installation part:
 
 # Hostel Management System
 

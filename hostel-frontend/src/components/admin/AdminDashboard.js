@@ -2,14 +2,16 @@ import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./HomePage";
 import Bill from "./Bill";
-import AddForm from "./AddForm";
 import { Box, CssBaseline } from "@mui/material";
+import Header from "./Header";
+
 
 const AdminDashboard = () => {
   return (
     <>
       <Box component="main" sx={styles.boxStyled}>
         <CssBaseline/>
+        <Header/>
         <Routes>
           <Route path="/" element={<Navigate to="/Admin/dashboard" />} />
           <Route path="/dashboard" element={<HomePage />} />

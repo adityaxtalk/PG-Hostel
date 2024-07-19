@@ -39,14 +39,21 @@ const Login = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({email, password})
-    }).then(data=> data.json()).then(res=> {
+    }).then(async response => {
+      if (!response.ok) {
+        // If the response status is not OK, throw an error
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.message || "Something went wrong");
+      }
+      return response.json();
+    }).then(res=> {
       console.log(res);
       dispatch(authSuccess(res))
        navigate("/Admin/dashboard");
     }).catch(error=> {
       console.error(error);
-      toast.error(error.message)
-      dispatch(authFailed(error.message));
+      toast.error(error)
+      dispatch(authFailed(error));
     })
   }
 

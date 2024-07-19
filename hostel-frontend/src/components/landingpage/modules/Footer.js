@@ -32,7 +32,7 @@ const Footer = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <MapContainer>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3589.89684549276!2d85.28286927523469!3d25.872872277282134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed6b1c90088795%3A0xa58ae65ccf5f2113!2sP.B%20Boy&#39;s%26%20Girls%20Hostel!5e0!3m2!1sen!2sin!4v1720865603583!5m2!1sen!2sin" width="400" height="300"  style={mapEmbedStyle} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe title="PB Hostel Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3589.89684549276!2d85.28286927523469!3d25.872872277282134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed6b1c90088795%3A0xa58ae65ccf5f2113!2sP.B%20Boy&#39;s%26%20Girls%20Hostel!5e0!3m2!1sen!2sin!4v1720865603583!5m2!1sen!2sin" width="400" height="300"  style={mapEmbedStyle} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </MapContainer>
           </Grid>
           <Grid item xs={12} md={6}>

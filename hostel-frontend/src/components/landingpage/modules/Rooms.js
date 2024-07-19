@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Box, Container, Grid, Typography, Button } from '@mui/material';
 import tripleSharing from "../../../assets/triple-sharing-room.png";
 import doubleSharing from "../../../assets/double-sharing-room.png";
+import { RowingOutlined } from '@mui/icons-material';
 
 const RoomSection = styled.section`
   margin-top: 5%;
@@ -76,10 +77,10 @@ const StyledButton = styled(Button)`
 
 function Rooms() {
   const roomData = [
-    { imgSrc: tripleSharing, title: 'Boys Triple Sharing Rooms', threeMonthUnitPrice: 5000, sixMonthUnitPrice: 4600, twelveMonthUnitPrice: 4200 },
-    { imgSrc: doubleSharing, title: 'Boys Double Sharing Rooms', threeMonthUnitPrice: 5500, sixMonthUnitPrice: 5000, twelveMonthUnitPrice: 4600 },
-    { imgSrc: tripleSharing, title: 'Girls Triple Sharing Rooms', threeMonthUnitPrice: 4800, sixMonthUnitPrice: 4400, twelveMonthUnitPrice: 4000 },
-    { imgSrc: doubleSharing, title: 'Girls Double Sharing Rooms', threeMonthUnitPrice: 5200, sixMonthUnitPrice: 4800, twelveMonthUnitPrice: 4400 },
+    { imgSrc: tripleSharing, title: 'Boys Triple Sharing Rooms',oneMonthUnitPrice: -1 ,threeMonthUnitPrice: 5000, sixMonthUnitPrice: 4600, twelveMonthUnitPrice: 4200 },
+    { imgSrc: doubleSharing, title: 'Boys Double Sharing Rooms',oneMonthUnitPrice: -1, threeMonthUnitPrice: 5500, sixMonthUnitPrice: 5000, twelveMonthUnitPrice: 4600 },
+    { imgSrc: tripleSharing, title: 'Girls Triple Sharing Rooms',oneMonthUnitPrice: 5200, threeMonthUnitPrice: 4800, sixMonthUnitPrice: 4400, twelveMonthUnitPrice: 4000 },
+    { imgSrc: doubleSharing, title: 'Girls Double Sharing Rooms',oneMonthUnitPrice: 5600, threeMonthUnitPrice: 5200, sixMonthUnitPrice: 4800, twelveMonthUnitPrice: 4400 },
   ];
 
   return (
@@ -104,6 +105,9 @@ function Rooms() {
                   <Typography variant="h3" component="h3" sx={{ fontWeight: 400, marginBottom: '10px', fontSize: '1.25rem' }}>
                     {room.title}
                   </Typography>
+                  
+                    {room.oneMonthUnitPrice > 0 && <PriceText><span>Rs. </span> {room.oneMonthUnitPrice} X 1 <span>{room.oneMonthUnitPrice} </span> </PriceText>}
+        
                   <PriceText>
                     <span>Rs. </span>{room.threeMonthUnitPrice} X 3 <span> {room.threeMonthUnitPrice * 3}</span>
                   </PriceText>

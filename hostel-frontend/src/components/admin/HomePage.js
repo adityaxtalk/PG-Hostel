@@ -7,6 +7,8 @@ import { Typography, IconButton, Button, Container, Box, CircularProgress } from
 import AddForm from './AddForm';
 import EditForm from './EditForm';
 import ViewDetail from './ViewDetail';
+import { authLogout } from '../../redux/userRelated/userSlice';
+import { useDispatch } from 'react-redux';
 
 const customStyle = {
     header: {
@@ -35,7 +37,7 @@ const HomePage = () => {
    const [visibleEditStudentForm, setVisibleEditStudentForm] = useState(false);
    const [viewStudentData, setViewStudentData] = useState([]);
    const [columns, setColumns] = useState([]);
-   
+const dispatch = useDispatch();
 
   const handleAddToStudentList = () => {
     setVisibleStudentDetail(false);
@@ -55,7 +57,7 @@ const HomePage = () => {
 
   const handleView = (student,val) => {
     // Handle view action here
-    const data=student.filter(stud=> stud.email === val);
+    const data=student.filter(stud=> stud["_id"] === val);
     setViewStudentData(data);
     setVisibleStudentDetail(true);
     setVisibleAddStudentForm(false);
@@ -65,7 +67,7 @@ const HomePage = () => {
   
   const handleEdit = (student,val) => {
     // Handle view action here
-    const data=student.filter(stud=> stud.email === val);
+    const data=student.filter(stud=> stud["_id"] === val);
     setViewStudentData(data);
     setVisibleStudentDetail(false);
     setVisibleAddStudentForm(false);
@@ -73,56 +75,84 @@ const HomePage = () => {
     console.log('Edit action clicked for row:', val);
   };
   
-  const handleDelete = (id) => {
-    // Handle delete action here
-    console.log('Delete action clicked for row ID:', id);
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URI}/api/student/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("access-token")}`
+        }
+      });
+  
+      const res = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(res.message || "Unable to delete the student record. Please try again");
+      }
+  
+      toast.success("Data deleted successfully");
+      fetchStudentDetail();
+    } catch (error) {
+      if (error === "Forbidden" || "unauthorized") {
+        dispatch(authLogout());
+      }
+      console.error('Error:', error);
+      toast.error(error || "Unable to delete the student record. Please try again");
+    }
   };
+  
 
-   function fetchStudentDetail() {
-    setIsLoading(true);
-       const accessToken = localStorage.getItem("access-token");
-        fetch(`${process.env.REACT_APP_API_URI}/api/student`, {
-          method: "GET",
-          headers: {
-            "Authorization":`Bearer ${accessToken}`
+   async function  fetchStudentDetail() {
+        setIsLoading(true);
+        try {
+          const accessToken = localStorage.getItem("access-token");
+          const response = await fetch(`${process.env.REACT_APP_API_URI}/api/student`, {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${accessToken}`
+            }
+          });
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.message || "Failed to fetch student data");
           }
-        }).then(res=>res.json()).then(data=> {
-            debugger
-            const _columns = [
-                { name: 'First Name', selector: row => row.firstName, sortable: true, wrap: true },
-                { name: 'Last Name', selector: row => row.lastName, sortable: true, wrap: true },
-                { name: 'Mobile Number', selector: row => row.mobileNumber, sortable: true, wrap: true },
-               
-                { name: 'Email', selector: row => row.email, sortable: true, wrap: true },
-                { name: 'Address', selector: row => row.address, sortable: true, wrap: true },
-                { name: 'Pincode', selector: row => row.pincode, sortable: true, wrap: true },
-                {
-                  name: 'Actions',
-                  cell: row => (
-                    <>
-                      <IconButton aria-label="view" onClick={() => handleView(data.student,row["email"])}>
-                        <Visibility />
-                      </IconButton>
-                      <IconButton aria-label="edit" onClick={() => handleEdit(data.student,row["email"])}>
-                        <Edit />
-                      </IconButton>
-                      <IconButton aria-label="delete" onClick={() => handleDelete(row["email"])}>
-                        <Delete />
-                      </IconButton>
-                    </>
-                  )
-                }
-              ];
-            setStudents(data.student);
-            setColumns(_columns);
-            setIsLoading(false);
-        }).catch(error=> {
-          debugger
-            console.error(error);
-            toast.error("Error occurred while fetching the student details");
-            setIsLoading(false);
-        })
+          const _columns = [
+            { name: 'First Name', selector: row => row.firstName, sortable: true, wrap: true },
+            { name: 'Last Name', selector: row => row.lastName, sortable: true, wrap: true },
+            { name: 'Mobile Number', selector: row => row.mobileNumber, sortable: true, wrap: true },
+            { name: 'Email', selector: row => row.email, sortable: true, wrap: true },
+            { name: 'Address', selector: row => row.address, sortable: true, wrap: true },
+            { name: 'Pincode', selector: row => row.pincode, sortable: true, wrap: true },
+            {
+              name: 'Actions',
+              cell: row => (
+                <>
+                  <IconButton aria-label="view" onClick={() => handleView(data.student, row["_id"])}>
+                    <Visibility />
+                  </IconButton>
+                  <IconButton aria-label="edit" onClick={() => handleEdit(data.student, row["_id"])}>
+                    <Edit />
+                  </IconButton>
+                  <IconButton aria-label="delete" onClick={() => handleDelete(row["_id"])}>
+                    <Delete />
+                  </IconButton>
+                </>
+              )
+            }
+          ];
+          setStudents(data.student);
+          setColumns(_columns);
+        } catch(error) {
+          if (error === "forbidden" || "unauthorized") {
+            dispatch(authLogout());
+          }
+          toast.error(error);
+        }
+        finally {
+          setIsLoading(false)
+        }
    }
+
    useEffect(()=> {
         fetchStudentDetail();
    } , []); 

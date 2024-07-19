@@ -1,8 +1,7 @@
-import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Typography } from '@mui/material';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import MenuIcon from '@mui/icons-material/Menu';
 
 const StyledAppBar = styled(AppBar)`
   background-color: transparent !important;

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import {  Typography, Accordion, AccordionSummary, AccordionDetails, Box } from '@mui/material';
+import {  Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Mess from '../../../assets/mess.jpg'
 const RestaurantSection = styled.section`

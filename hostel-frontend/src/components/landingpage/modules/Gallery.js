@@ -113,22 +113,22 @@ function Gallery() {
         </Heading>
         <Slider {...settings}>
           <ImageWrapper>
-            <img src={image1} alt="Gallery Image 1" />
+            <img src={image1} alt="Gallery 1" />
           </ImageWrapper>
           <ImageWrapper>
-            <img src={image2} alt="Gallery Image 2" />
+            <img src={image2} alt="Gallery 2" />
           </ImageWrapper>
           <ImageWrapper>
-            <img src={image3} alt="Gallery Image 3" />
+            <img src={image3} alt="Gallery 3" />
           </ImageWrapper>
           <ImageWrapper>
-            <img src={image4} alt="Gallery Image 4" />
+            <img src={image4} alt="Gallery 4" />
           </ImageWrapper>
           <ImageWrapper>
-            <img src={hostel1} alt="Gallery Image 5" />
+            <img src={hostel1} alt="Gallery  5" />
           </ImageWrapper>
           <ImageWrapper>
-            <img src={hostel2} alt="Gallery Image 6" />
+            <img src={hostel2} alt="Gallery 6" />
           </ImageWrapper>
           </Slider>
       </Container>

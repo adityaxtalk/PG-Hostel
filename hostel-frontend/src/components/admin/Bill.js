@@ -52,15 +52,16 @@ const Bill = () => {
       const fileURL = URL.createObjectURL(file);
       const a = document.createElement("a");
       a.href = fileURL;
-      a.download = `invoice-${invoiceData.invoiceNumber}.pdf`; // Set the desired file name
+      a.download = `invoice-${invoiceData.invoiceNumber}.pdf`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
 
-      URL.revokeObjectURL(fileURL); // Clean up the URL object
+      URL.revokeObjectURL(fileURL);
       toast.success("Invoice generated successfully!");
+    } else {
+      toast.error("Error generating the invoice, please try again");
     }
-    toast.error("Error generating the invoice, please try again");
   };
 
   return (
@@ -122,6 +123,8 @@ const Bill = () => {
           margin="normal"
           label="Next Payment Date"
           name="nextPaymentDate"
+          type="date"
+          InputLabelProps={{ shrink: true }}
           onChange={handleChange}
         />
         <Button variant="contained" color="primary" type="submit" sx={{ mt: 2 }}>

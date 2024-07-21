@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid, Typography } from '@mui/material';
+import { Container, Grid, Typography, Link } from '@mui/material';
 import styled from 'styled-components';
 
 
@@ -32,7 +32,7 @@ const Footer = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <MapContainer>
-                <iframe title="PB Hostel Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3589.89684549276!2d85.28286927523469!3d25.872872277282134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed6b1c90088795%3A0xa58ae65ccf5f2113!2sP.B%20Boy&#39;s%26%20Girls%20Hostel!5e0!3m2!1sen!2sin!4v1720865603583!5m2!1sen!2sin" width="400" height="300"  style={mapEmbedStyle} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              <iframe title="PB Hostel Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3589.9048335685156!2d85.2851055!3d25.872609399999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed6b7f2a2700c5%3A0xb06be51a17cb4e2e!2zUGFuZGV5IGJhYmEgYm95cyBob3N0ZWwg4KSq4KS-4KSC4KSh4KWH4KSvIOCkrOCkvuCkrOCkviDgpKzgpYngpK_gpJwg4KS54KWL4KS44KWN4KSf4KSy!5e0!3m2!1sen!2sin!4v1721580653575!5m2!1sen!2sin" width="400" height="300" style={mapEmbedStyle} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </MapContainer>
           </Grid>
           <Grid item xs={12} md={6}>
@@ -42,7 +42,8 @@ const Footer = () => {
               </Typography>
               
               <Typography variant="body1" gutterBottom>
-                Phone: 9708400495, 993944914
+                Phone: <Link href="tel:9708400495">9708400495</Link>, 
+                <Link href="tel:993944914">993944914</Link>
               </Typography>
               <Typography variant="body1" gutterBottom>
                 Address: 002, Road, near CV Raman University, Bafapur Banthu, Bhagwanpur, Bihar 844114

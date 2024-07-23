@@ -1,27 +1,77 @@
-import React, {useState, useEffect } from 'react'
+import React, {useState, useEffect, useRef } from 'react'
 import { Container, Box, Button, Typography, TextField, IconButton, Divider } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { toast } from 'react-toastify';
+import Select, {components} from 'react-select'
+
 
 const Bill = () => {
   const [invoiceData, setInvoiceData] = useState({
     invoiceNumber: '',
     date: '',
-    name: '',
     address: '',
     items: [],
     nextPaymentDate: '',
   });
+  
+
+
+  const selectRef = useRef();
+  const [options, setOptions] = useState([]);
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [studentValue, setStudentValue] = useState("");
+  const [selectedStudent, setSelectedSudent] = useState("");
+  const handleInputChange = (stud) => {
+    if (stud.length) {
+      setMenuIsOpen(true)
+    } else {
+      setMenuIsOpen(false);
+    }
+    setStudentValue(stud);
+  }
+
+   const handleStudentValue = (studValue) => {
+    const {firstName, lastName} = studValue;
+    setInvoiceData({...invoiceData,"name": `${firstName} ${lastName}`});
+   }
+
+   const DropdownIndicator = (props) => {
+    const {menuIsOpen} = props.selectProps;
+
+    const handleDropDownClick= () => {
+      setMenuIsOpen(prevState=> !prevState);
+    }
+
+    return <components.DropdownIndicator {...props}>
+         <div onClick={handleDropDownClick}>
+          {menuIsOpen ? "-":"+"}
+         </div>
+    </components.DropdownIndicator>
+   }
 
   useEffect(() => {
     const generateInvoiceNumber = () => {
       const timestamp = Date.now();
       setInvoiceData((prevData) => ({ ...prevData, invoiceNumber: `INV-${timestamp}` }));
     };
+   
+    const fetchStudentDetail = async () => {
+      const accessToken = localStorage.getItem("access-token");
+          const response = await fetch(`${process.env.REACT_APP_API_URI}/api/student`, {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${accessToken}`
+            }
+          });
+          const data = await response.json();
+          setOptions(data.student);
+    }
 
+    fetchStudentDetail();
     generateInvoiceNumber();
   }, []);
-
+  
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInvoiceData({ ...invoiceData, [name]: value });
@@ -71,6 +121,13 @@ const Bill = () => {
           Generate Invoice
         </Typography>
         <Divider/>
+        <Select menuIsOpen={menuIsOpen} ref={selectRef} options={options} value={studentValue} placeholder="Generate Invoice for Student" 
+          getOptionValue={(option)=> option.firstName + " " + option.lastName}
+          getOptionLabel={(option)=> option.firstName + " " + option.lastName}
+          components={{DropdownIndicator}}
+          onChange={handleStudentValue}
+          onInputChange={handleInputChange}
+        />
         <Typography variant="h6" gutterBottom>
           Invoice Number: {invoiceData.invoiceNumber}
         </Typography>
@@ -86,9 +143,11 @@ const Bill = () => {
         <TextField
           fullWidth
           margin="normal"
-          label="Name"
+          InputLabelProps={{ shrink: true }}
+          label="name"
           name="name"
-          onChange={handleChange}
+          value={invoiceData.name}
+          disabled
         />
         <TextField
           fullWidth

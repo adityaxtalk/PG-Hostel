@@ -2,7 +2,7 @@ import StudentModel from "../model/StudentModel.js";
 
 export const getAllStudent = async (req, res) => {
     try {
-      const students = await StudentModel.find();
+      const students = await StudentModel.find().populate('invoices');
       return res.status(200).json({student: students, message: "Data successfully fetched"});
     } catch (error) {
         console.error(error);
@@ -23,7 +23,7 @@ export const createStudent = async (req, res) => {
 
 export const getStudentById = async (req,res) => {
     try {
-        const student = await StudentModel.findById(req.params.id);
+        const student = await Student.findById(req.params.id).populate('invoices');
         if (!student) {
             return res.status(404).json({ message: "Student not found" });
         }

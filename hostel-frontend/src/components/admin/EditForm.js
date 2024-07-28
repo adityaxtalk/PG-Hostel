@@ -7,6 +7,14 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { authLogout } from '../../redux/userRelated/userSlice';
 
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required("First name is required"),
   middleName: Yup.string(),
@@ -35,11 +43,13 @@ const validationSchema = Yup.object().shape({
 const EditForm = ({ student, handleBackToStudentList }) => {
   const dispatch = useDispatch();
   const initialValues = {
-    ...student[0]
+    ...student[0],
+    admissionDate: formatDate(student[0].admissionDate),
+    dateOfBirth: formatDate(student[0].dateOfBirth)
   }
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URI}/api/student/update/${student[0]["_id"]}`, {
+      const response = await fetch(`https://api-2afwy3hsbq-uc.a.run.app/api/student/update/${student[0]["_id"]}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

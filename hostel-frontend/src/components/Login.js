@@ -33,7 +33,7 @@ const Login = () => {
     event.preventDefault();
     if (email.length === 0){ setEmailError(true); return }
     if (password.length === 0){ setPasswordError(true); return}
-    fetch(`${process.env.REACT_APP_API_URI}/api/user/login`, {
+    fetch(`https://api-2afwy3hsbq-uc.a.run.app/api/user/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,6 @@ const Login = () => {
       }
       return response.json();
     }).then(res=> {
-      console.log(res);
       dispatch(authSuccess(res))
        navigate("/Admin/dashboard");
     }).catch(error=> {
@@ -59,7 +58,6 @@ const Login = () => {
 
   const handleInputChange = (event) => {
     const {name} = event.target;
-    console.log(name)
     if (name === 'email') {
       if (event.target.value.length)
         setEmailError(false);
@@ -68,7 +66,6 @@ const Login = () => {
       setEmail(event.target.value);
     }
     if (name === 'password') {
-      console.log(event.target.value)
       if (event.target.value.length)
         setPasswordError(false);
       else 

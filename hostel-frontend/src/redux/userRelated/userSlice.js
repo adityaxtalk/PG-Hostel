@@ -4,7 +4,7 @@ const initialState = {
     status: 'idle',
     userDetails: [],
     loading: false,
-    currentUser: localStorage.getItem('user') || null,
+    currentUser: localStorage.getItem('user') || '',
     error: null,
     response: null,
     authenticated: localStorage.getItem('access-token') ? true : false ,

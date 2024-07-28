@@ -77,7 +77,7 @@ const dispatch = useDispatch();
   
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URI}/api/student/delete/${id}`, {
+      const response = await fetch(`https://api-2afwy3hsbq-uc.a.run.app/api/student/delete/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("access-token")}`
@@ -106,7 +106,7 @@ const dispatch = useDispatch();
         setIsLoading(true);
         try {
           const accessToken = localStorage.getItem("access-token");
-          const response = await fetch(`${process.env.REACT_APP_API_URI}/api/student`, {
+          const response = await fetch(`https://api-2afwy3hsbq-uc.a.run.app/api/student`, {
             method: "GET",
             headers: {
               "Authorization": `Bearer ${accessToken}`

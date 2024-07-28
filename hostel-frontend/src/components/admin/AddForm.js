@@ -15,17 +15,17 @@ const validationSchema = Yup.object().shape({
   dateOfBirth: Yup.date().required("Date of Birth is required"),
   admissionDate: Yup.date().required("Admission date is required"),
   nationality: Yup.string().required("Nationality is required"),
-  mobileNumber: Yup.string().required("Mobile Number is required"),
+  mobileNumber: Yup.string(),
   residentPhone: Yup.string(),
-  email: Yup.string().email("Invalid email").required("Email is required"),
+  email: Yup.string().email("Invalid email"),
   address: Yup.string().required('Address is required'),
-  pincode: Yup.number().required('Pincode is required'),
-  permanentAddress: Yup.string().required('Permanent Address is required'),
-  permanentAddressPincode: Yup.number().required('Permanent Address Pincode is required'),
+  pincode: Yup.number(),
+  permanentAddress: Yup.string(),
+  permanentAddressPincode: Yup.number(),
   motherName: Yup.string().required('Mother Name is required'),
-  motherMobileNumber: Yup.string().required('Mother Mobile Number is required'),
+  motherMobileNumber: Yup.string(),
   fatherName: Yup.string().required('Father Name is required'),
-  fatherMobileNumber: Yup.string().required('Father Mobile Number is required'),
+  fatherMobileNumber: Yup.string(),
   guardianName: Yup.string(),
   guardianMobile: Yup.string(),
   guardianAddress: Yup.string(),
@@ -63,7 +63,7 @@ const AddForm = ({handleBackToStudentList}) => {
     
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URI}/api/student/create`, {
+        const response = await fetch(`https://api-2afwy3hsbq-uc.a.run.app/api/student/create`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

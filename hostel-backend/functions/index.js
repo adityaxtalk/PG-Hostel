@@ -5,8 +5,6 @@ import mongoose from 'mongoose';
 import {onRequest} from "firebase-functions/v2/https";
 import logger from "firebase-functions/logger";
 
-import PDFDocument from 'pdfkit';
-import verifyJWT from "./middleware/verifyjwt.js";
 
 
 const app=express();

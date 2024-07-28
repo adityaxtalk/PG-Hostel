@@ -68,7 +68,14 @@ const StudentSchema = new Schema({
     },
     pancard: {
         type: String
-    }
+    },
+    admissionDate: {
+        type: Date
+    },
+    invoices: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Invoice'
+      }]
 }, {timestamps: true});
 
 export default  mongoose.model("student", StudentSchema);

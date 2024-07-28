@@ -45,6 +45,7 @@ const NavLinkStyled = styled(NavLink)`
   color: ${(props) => props.theme.palette.text.primary};
   text-decoration: none;
   font-size: 1rem;
+  z-index: 5;
   margin-left: ${(props) => props.theme.spacing(2)};
   cursor: pointer; 
   @media (max-width: 600px) {
